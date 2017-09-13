@@ -29,7 +29,7 @@ class ProductOffer
     public function __construct(
         string $shopName,
         float $productPrice,
-        $deliveryPrice
+        ?float $deliveryPrice
     ) {
         $this->shopName = $shopName;
         $this->productPrice = $productPrice;
@@ -55,7 +55,7 @@ class ProductOffer
     /**
      * @return float|null
      */
-    public function getDeliveryPrice()
+    public function getDeliveryPrice(): ?float
     {
         return $this->deliveryPrice;
     }

@@ -12,11 +12,15 @@
             "": "src/"
         }
     },
+    "config": {
+        "bin-dir": "vendor/bin"
+    },
     "require": {
         "symfony/dom-crawler": "^3.3",
         "symfony/css-selector": "^3.3"
     },
     "require-dev": {
-        "phpspec/phpspec": "^4.0"
+        "phpspec/phpspec": "^4.0",
+        "behat/behat": "^3.4"
     }
 }
