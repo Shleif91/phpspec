@@ -19,7 +19,7 @@ class MonitorGrabberSpec extends ObjectBehavior
         $this->collectPrices('')->shouldReturn([]);
     }
 
-    function it_compares_amount_data_transmitted_and_received()
+    function it_fetches_all_offers_from_page()
     {
         $html = file_get_contents('/var/www/page/LG_25UM58-P.html');
 
