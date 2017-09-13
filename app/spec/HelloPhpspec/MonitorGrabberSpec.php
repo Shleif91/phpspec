@@ -24,7 +24,6 @@ class MonitorGrabberSpec extends ObjectBehavior
         $html = file_get_contents('/var/www/page/LG_25UM58-P.html');
 
         $this->collectPrices($html)->shouldHaveCount(15);
-
     }
 
     function it_correctly_handles_price_larger_than_1000_rubles()
@@ -73,5 +72,21 @@ class MonitorGrabberSpec extends ObjectBehavior
         );
 
         $prices->shouldBeLike([$price]);
+    }
+
+    function it_fetches_all_offers_from_two_pages()
+    {
+        $html = file_get_contents('/var/www/page/LG_25UM58-P-free-delivery.html');
+
+        $this->collectPrices($html);
+        $prices = $this->collectPrices($html);
+
+        $price = new ProductOffer(
+            'TTN.by',
+            1357.27,
+            null
+        );
+
+        $prices->shouldBeLike([$price, $price]);
     }
 }
