@@ -1,2 +1,2 @@
-Docker remote
+PhpSpec test project
 =============
