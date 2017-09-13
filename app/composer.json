@@ -1,0 +1,22 @@
+{
+    "name": "root/www",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shleif",
+            "email": "shyherpunk@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    },
+    "require": {
+        "symfony/dom-crawler": "^3.3",
+        "symfony/css-selector": "^3.3"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^4.0"
+    }
+}
