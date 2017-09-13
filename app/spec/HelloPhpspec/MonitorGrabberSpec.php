@@ -19,22 +19,59 @@ class MonitorGrabberSpec extends ObjectBehavior
         $this->collectPrices('')->shouldReturn([]);
     }
 
-
-    function it_parse_file_and_return_array()
+    function it_compares_amount_data_transmitted_and_received()
     {
         $html = file_get_contents('/var/www/page/LG_25UM58-P.html');
+
+        $this->collectPrices($html)->shouldHaveCount(15);
+
+    }
+
+    function it_correctly_handles_price_larger_than_1000_rubles()
+    {
+        $html = file_get_contents('/var/www/page/LG_25UM58-P-more-1000.html');
 
         /** @var ProductOffer[] $prices */
         $prices = $this->collectPrices($html);
 
-        $prices[0]->shouldHaveType(ProductOffer::class);
-        $prices[0]->getShopName()->shouldBe('TTN.by');
-        $prices[0]->getProductPrice()->shouldBe(1355.43);
-        $prices[0]->getDeliveryPrice()->shouldBe(null);
+        $price = new ProductOffer(
+            'TTN.by',
+            1357.27,
+            4.5
+        );
 
-        $prices[1]->shouldHaveType(ProductOffer::class);
-        $prices[1]->getShopName()->shouldBe('NOVATEK');
-        $prices[1]->getProductPrice()->shouldBe(349.05);
-        $prices[1]->getDeliveryPrice()->shouldBe((float)0);
+        $prices->shouldBeLike([$price]);
+    }
+
+    function it_detects_free_delivery()
+    {
+        $html = file_get_contents('/var/www/page/LG_25UM58-P-free-delivery.html');
+
+        /** @var ProductOffer[] $prices */
+        $prices = $this->collectPrices($html);
+
+        $price = new ProductOffer(
+            'TTN.by',
+            1357.27,
+            0
+        );
+
+        $prices->shouldBeLike([$price]);
+    }
+
+    function it_detects_unavailable_delivery()
+    {
+        $html = file_get_contents('/var/www/page/LG_25UM58-P-free-delivery.html');
+
+        /** @var ProductOffer[] $prices */
+        $prices = $this->collectPrices($html);
+
+        $price = new ProductOffer(
+            'TTN.by',
+            1357.27,
+            null
+        );
+
+        $prices->shouldBeLike([$price]);
     }
 }
