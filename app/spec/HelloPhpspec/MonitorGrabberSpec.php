@@ -87,6 +87,6 @@ class MonitorGrabberSpec extends ObjectBehavior
             null
         );
 
-        $prices->shouldBeLike([$price, $price]);
+        $prices->shouldBeLike([$price]);
     }
 }

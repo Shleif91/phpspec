@@ -24,6 +24,8 @@ class MonitorGrabber implements OffersGrabber
      */
     public function collectPrices(string $htmlPageContent): array
     {
+        $this->prices = [];
+
         $crawler = new Crawler($htmlPageContent);
 
         $crawler->filter('.b-offers-list-line-table__table > tbody > tr')->each(function (Crawler $node) {
